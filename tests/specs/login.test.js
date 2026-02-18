@@ -22,7 +22,7 @@ describe("Login Test", () => {
       await loginAction.inputPassword("secret_sauce");
       await loginAction.clickLoginButton();
       await loginAction.assertLoginSuccess();
-
+      await driver.sleep(3000);
       await compareScreenshot(driver, "login-success");
    });
    it("should login with invalid username", async () => {
@@ -36,7 +36,7 @@ describe("Login Test", () => {
          LoginPage.errorMassage,
          "login-failed-wrong-password",
       );
-      await compareScreenshot(driver, "login-failed-wrong-password");
+      await compareScreenshot(driver, "login-failed-invalid-username");
    });
    it("should login with wrong password", async () => {
       await loginAction.inputUsername("standard_user");
