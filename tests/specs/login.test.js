@@ -25,6 +25,19 @@ describe("Login Test", () => {
 
       await compareScreenshot(driver, "login-success");
    });
+   it("should login with invalid username", async () => {
+      await loginAction.inputUsername("invalid_username");
+      await loginAction.inputPassword("secret_sauce");
+      await loginAction.clickLoginButton();
+      await loginAction.assertLoginFailed(
+         "Epic sadface: Username and password do not match any user in this service",
+      );
+      await sharingAction.partialPageScreenshot(
+         LoginPage.errorMassage,
+         "login-failed-wrong-password",
+      );
+      await compareScreenshot(driver, "login-failed-wrong-password");
+   });
    it("should login with wrong password", async () => {
       await loginAction.inputUsername("standard_user");
       await loginAction.inputPassword("salah");
